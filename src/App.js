@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import CategorySelector from './components/CategorySelector'
+import QuestionPresenter from './components/QuestionPresenter'
 
 class App extends React.Component {
   constructor () {
@@ -26,12 +27,23 @@ class App extends React.Component {
   }
 
   render () {
+    const { categories, selectedCategory } = this.state
+    // equivalent to
+    // const categories = this.state.categories
+    // const selectedCategory = this.state.selectedCategory
+
     return (
       <div className='App mw8 center pa4'>
-        <CategorySelector
-          categories={this.state.categories}
-          selectCategory={this.selectCategory}
-        />
+        {
+          selectedCategory
+            ? <QuestionPresenter selectedCategory={selectedCategory} />
+            : (
+              <CategorySelector
+                categories={categories}
+                selectCategory={this.selectCategory}
+              />
+            )
+        }
       </div>
     )
   }
